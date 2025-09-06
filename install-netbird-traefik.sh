@@ -3,10 +3,10 @@
 set -e
 
 # Configuration
-NETBIRD_DOMAIN="netbird.yblis.fr"
-export NETBIRD_DOMAIN
 TRAEFIK_NETWORK="traefik_traefik"
 TRAEFIK_CERTRESOLVER="webssl"
+NETBIRD_DOMAIN="netbird.yblis.fr"
+export NETBIRD_DOMAIN
 
 # Error handling functions
 handle_request_command_status() {
@@ -820,8 +820,8 @@ EOF
   echo "Login with the following credentials:"
   echo "Username: $ZITADEL_ADMIN_USERNAME" | tee .env
   echo "Password: $ZITADEL_ADMIN_PASSWORD" | tee -a .env
-  echo "NetBird URL: https://$NETBIRD_DOMAIN" | tee -a .env
-  echo "Zitadel console: https://$NETBIRD_DOMAIN/ui/console" | tee -a .env
+  echo "NetBird_URL: https://$NETBIRD_DOMAIN" | tee -a .env
+  echo "Zitadel_console: https://$NETBIRD_DOMAIN/ui/console" | tee -a .env
   echo ""
   echo "Zitadel console: https://$NETBIRD_DOMAIN/ui/console"
   echo ""
