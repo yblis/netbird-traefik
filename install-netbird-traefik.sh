@@ -3,9 +3,10 @@
 set -e
 
 # Configuration
-NETBIRD_DOMAIN="netbird.domain.fr"
+NETBIRD_DOMAIN="netbird.yblis.fr"
 export NETBIRD_DOMAIN
 TRAEFIK_NETWORK="traefik_traefik"
+TRAEFIK_CERTRESOLVER="webssl"
 
 # Error handling functions
 handle_request_command_status() {
@@ -430,7 +431,7 @@ services:
       - traefik.http.routers.netbird-dashboard.rule=Host(`NETBIRD_DOMAIN_PLACEHOLDER`)
       - traefik.http.routers.netbird-dashboard.entrypoints=https
       - traefik.http.routers.netbird-dashboard.tls=true
-      - traefik.http.routers.netbird-dashboard.tls.certresolver=webssl
+      - traefik.http.routers.netbird-dashboard.tls.certresolver=NETBIRD_TRAEFIK_SSL
       - traefik.http.routers.netbird-dashboard.priority=50
     logging:
       driver: "json-file"
@@ -453,7 +454,7 @@ services:
       - traefik.http.routers.netbird-signal.rule=Host(`NETBIRD_DOMAIN_PLACEHOLDER`) && PathPrefix(`/signalexchange.SignalExchange/`)
       - traefik.http.routers.netbird-signal.entrypoints=https
       - traefik.http.routers.netbird-signal.tls=true
-      - traefik.http.routers.netbird-signal.tls.certresolver=webssl
+      - traefik.http.routers.netbird-signal.tls.certresolver=NETBIRD_TRAEFIK_SSL
       - traefik.http.routers.netbird-signal.priority=200
     logging:
       driver: "json-file"
@@ -477,7 +478,7 @@ services:
       - traefik.http.routers.netbird-relay.rule=Host(`NETBIRD_DOMAIN_PLACEHOLDER`) && PathPrefix(`/relay`)
       - traefik.http.routers.netbird-relay.entrypoints=https
       - traefik.http.routers.netbird-relay.tls=true
-      - traefik.http.routers.netbird-relay.tls.certresolver=webssl
+      - traefik.http.routers.netbird-relay.tls.certresolver=NETBIRD_TRAEFIK_SSL
       - traefik.http.routers.netbird-relay.priority=200
     logging:
       driver: "json-file"
@@ -515,14 +516,14 @@ services:
       - traefik.http.routers.netbird-api.entrypoints=https
       - traefik.http.routers.netbird-api.service=netbird-management
       - traefik.http.routers.netbird-api.tls=true
-      - traefik.http.routers.netbird-api.tls.certresolver=webssl
+      - traefik.http.routers.netbird-api.tls.certresolver=NETBIRD_TRAEFIK_SSL
       - traefik.http.routers.netbird-api.priority=200
       # gRPC
       - traefik.http.routers.netbird-management-grpc.rule=Host(`NETBIRD_DOMAIN_PLACEHOLDER`) && PathPrefix(`/management.ManagementService/`)
       - traefik.http.routers.netbird-management-grpc.entrypoints=https
       - traefik.http.routers.netbird-management-grpc.service=netbird-management-grpc
       - traefik.http.routers.netbird-management-grpc.tls=true
-      - traefik.http.routers.netbird-management-grpc.tls.certresolver=webssl
+      - traefik.http.routers.netbird-management-grpc.tls.certresolver=NETBIRD_TRAEFIK_SSL
       - traefik.http.routers.netbird-management-grpc.priority=200
     logging:
       driver: "json-file"
@@ -571,56 +572,56 @@ services:
       - traefik.http.routers.zitadel-wellknown.service=zitadel
       - traefik.http.routers.zitadel-wellknown.priority=300
       - traefik.http.routers.zitadel-wellknown.tls=true
-      - traefik.http.routers.zitadel-wellknown.tls.certresolver=webssl
+      - traefik.http.routers.zitadel-wellknown.tls.certresolver=NETBIRD_TRAEFIK_SSL
       # OAuth
       - traefik.http.routers.zitadel-oauth.rule=Host(`NETBIRD_DOMAIN_PLACEHOLDER`) && PathPrefix(`/oauth`)
       - traefik.http.routers.zitadel-oauth.entrypoints=https
       - traefik.http.routers.zitadel-oauth.service=zitadel
       - traefik.http.routers.zitadel-oauth.priority=300
       - traefik.http.routers.zitadel-oauth.tls=true
-      - traefik.http.routers.zitadel-oauth.tls.certresolver=webssl
+      - traefik.http.routers.zitadel-oauth.tls.certresolver=NETBIRD_TRAEFIK_SSL
       # OIDC
       - traefik.http.routers.zitadel-oidc.rule=Host(`NETBIRD_DOMAIN_PLACEHOLDER`) && PathPrefix(`/oidc`)
       - traefik.http.routers.zitadel-oidc.entrypoints=https
       - traefik.http.routers.zitadel-oidc.service=zitadel
       - traefik.http.routers.zitadel-oidc.priority=300
       - traefik.http.routers.zitadel-oidc.tls=true
-      - traefik.http.routers.zitadel-oidc.tls.certresolver=webssl
+      - traefik.http.routers.zitadel-oidc.tls.certresolver=NETBIRD_TRAEFIK_SSL
       # UI Console
       - traefik.http.routers.zitadel-ui.rule=Host(`NETBIRD_DOMAIN_PLACEHOLDER`) && PathPrefix(`/ui`)
       - traefik.http.routers.zitadel-ui.entrypoints=https
       - traefik.http.routers.zitadel-ui.service=zitadel
       - traefik.http.routers.zitadel-ui.priority=300
       - traefik.http.routers.zitadel-ui.tls=true
-      - traefik.http.routers.zitadel-ui.tls.certresolver=webssl
+      - traefik.http.routers.zitadel-ui.tls.certresolver=NETBIRD_TRAEFIK_SSL
       # Device flow
       - traefik.http.routers.zitadel-device.rule=Host(`NETBIRD_DOMAIN_PLACEHOLDER`) && PathPrefix(`/device`)
       - traefik.http.routers.zitadel-device.entrypoints=https
       - traefik.http.routers.zitadel-device.service=zitadel
       - traefik.http.routers.zitadel-device.priority=300
       - traefik.http.routers.zitadel-device.tls=true
-      - traefik.http.routers.zitadel-device.tls.certresolver=webssl
+      - traefik.http.routers.zitadel-device.tls.certresolver=NETBIRD_TRAEFIK_SSL
       # Management API
       - traefik.http.routers.zitadel-mgmt.rule=Host(`NETBIRD_DOMAIN_PLACEHOLDER`) && PathPrefix(`/management/v1`)
       - traefik.http.routers.zitadel-mgmt.entrypoints=https
       - traefik.http.routers.zitadel-mgmt.service=zitadel
       - traefik.http.routers.zitadel-mgmt.priority=300
       - traefik.http.routers.zitadel-mgmt.tls=true
-      - traefik.http.routers.zitadel-mgmt.tls.certresolver=webssl
+      - traefik.http.routers.zitadel-mgmt.tls.certresolver=NETBIRD_TRAEFIK_SSL
       # Auth API
       - traefik.http.routers.zitadel-auth.rule=Host(`NETBIRD_DOMAIN_PLACEHOLDER`) && PathPrefix(`/auth/v1`)
       - traefik.http.routers.zitadel-auth.entrypoints=https
       - traefik.http.routers.zitadel-auth.service=zitadel
       - traefik.http.routers.zitadel-auth.priority=300
       - traefik.http.routers.zitadel-auth.tls=true
-      - traefik.http.routers.zitadel-auth.tls.certresolver=webssl
+      - traefik.http.routers.zitadel-auth.tls.certresolver=NETBIRD_TRAEFIK_SSL
       # Admin API
       - traefik.http.routers.zitadel-admin.rule=Host(`NETBIRD_DOMAIN_PLACEHOLDER`) && PathPrefix(`/admin/v1`)
       - traefik.http.routers.zitadel-admin.entrypoints=https
       - traefik.http.routers.zitadel-admin.service=zitadel
       - traefik.http.routers.zitadel-admin.priority=300
       - traefik.http.routers.zitadel-admin.tls=true
-      - traefik.http.routers.zitadel-admin.tls.certresolver=webssl
+      - traefik.http.routers.zitadel-admin.tls.certresolver=NETBIRD_TRAEFIK_SSL
     logging:
       driver: "json-file"
       options:
@@ -660,6 +661,7 @@ networks:
     external: true
 EOF
 sed -i "s/NETBIRD_DOMAIN_PLACEHOLDER/${NETBIRD_DOMAIN}/g" docker-compose.yml
+sed -i "s/NETBIRD_TRAEFIK_SSL/${TRAEFIK_CERTRESOLVER}/g" docker-compose.yml
 
   # Create machinekey directory
   mkdir -p machinekey
