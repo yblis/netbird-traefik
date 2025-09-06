@@ -5,7 +5,7 @@ set -e
 # Configuration
 TRAEFIK_NETWORK="traefik_traefik"
 TRAEFIK_CERTRESOLVER="webssl"
-NETBIRD_DOMAIN="netbird.domain.fr"
+NETBIRD_DOMAIN="netbird.domain.com"
 export NETBIRD_DOMAIN
 
 # Error handling functions
