@@ -5,7 +5,7 @@ set -e
 # Configuration
 TRAEFIK_NETWORK="traefik_traefik"
 TRAEFIK_CERTRESOLVER="webssl"
-NETBIRD_DOMAIN="netbird.yblis.fr"
+NETBIRD_DOMAIN="netbird.domain.fr"
 export NETBIRD_DOMAIN
 
 # Error handling functions
@@ -622,6 +622,27 @@ services:
       - traefik.http.routers.zitadel-admin.priority=300
       - traefik.http.routers.zitadel-admin.tls=true
       - traefik.http.routers.zitadel-admin.tls.certresolver=NETBIRD_TRAEFIK_SSL
+      # Endpoints gRPC Zitadel
+      - traefik.http.routers.zitadel-grpc-auth.rule=Host(`netbird.yblis.fr`) && PathPrefix(`/zitadel.auth.v1.AuthService/`)
+      - traefik.http.routers.zitadel-grpc-auth.entrypoints=https
+      - traefik.http.routers.zitadel-grpc-auth.service=zitadel
+      - traefik.http.routers.zitadel-grpc-auth.priority=400
+      - traefik.http.routers.zitadel-grpc-auth.tls=true
+      - traefik.http.routers.zitadel-grpc-auth.tls.certresolver=webssl
+      
+      - traefik.http.routers.zitadel-grpc-admin.rule=Host(`netbird.yblis.fr`) && PathPrefix(`/zitadel.admin.v1.AdminService/`)
+      - traefik.http.routers.zitadel-grpc-admin.entrypoints=https
+      - traefik.http.routers.zitadel-grpc-admin.service=zitadel
+      - traefik.http.routers.zitadel-grpc-admin.priority=400
+      - traefik.http.routers.zitadel-grpc-admin.tls=true
+      - traefik.http.routers.zitadel-grpc-admin.tls.certresolver=webssl
+      
+      - traefik.http.routers.zitadel-grpc-mgmt.rule=Host(`netbird.yblis.fr`) && PathPrefix(`/zitadel.management.v1.ManagementService/`)
+      - traefik.http.routers.zitadel-grpc-mgmt.entrypoints=https
+      - traefik.http.routers.zitadel-grpc-mgmt.service=zitadel
+      - traefik.http.routers.zitadel-grpc-mgmt.priority=400
+      - traefik.http.routers.zitadel-grpc-mgmt.tls=true
+      - traefik.http.routers.zitadel-grpc-mgmt.tls.certresolver=webssl
     logging:
       driver: "json-file"
       options:
