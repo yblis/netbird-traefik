@@ -660,8 +660,7 @@ networks:
   traefik_traefik:
     external: true
 EOF
-sed -i "s/NETBIRD_DOMAIN_PLACEHOLDER/${NETBIRD_DOMAIN}/g" docker-compose.yml
-sed -i "s/NETBIRD_TRAEFIK_SSL/${TRAEFIK_CERTRESOLVER}/g" docker-compose.yml
+sed -i "s/NETBIRD_DOMAIN_PLACEHOLDER/${NETBIRD_DOMAIN}/g; s/NETBIRD_TRAEFIK_SSL/${TRAEFIK_CERTRESOLVER}/g" docker-compose.yml
 
   # Create machinekey directory
   mkdir -p machinekey
@@ -821,7 +820,8 @@ EOF
   echo "Login with the following credentials:"
   echo "Username: $ZITADEL_ADMIN_USERNAME" | tee .env
   echo "Password: $ZITADEL_ADMIN_PASSWORD" | tee -a .env
-  echo "URL: https://$NETBIRD_DOMAIN" | tee -a .env
+  echo "NetBird URL: https://$NETBIRD_DOMAIN" | tee -a .env
+  echo "Zitadel console: https://$NETBIRD_DOMAIN/ui/console" | tee -a .env
   echo ""
   echo "Zitadel console: https://$NETBIRD_DOMAIN/ui/console"
   echo ""
