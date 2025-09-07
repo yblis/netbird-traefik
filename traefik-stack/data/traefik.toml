@@ -1,6 +1,3 @@
-# Supprimez la ligne defaultEntryPoints qui est obsolète dans Traefik v2+
-# defaultEntryPoints = ["http", "https", "ws", "wss"]
-
 [entryPoints]
   [entryPoints.http]
     address = ":80"
@@ -29,6 +26,6 @@
     permanent = true
     sslRedirect = true
     
-# Autorise les backend TLS
-[serversTransport]
-  insecureSkipVerify = true
+# Autorize TSL backend
+# [serversTransport]
+#   insecureSkipVerify = true
