@@ -1,4 +1,4 @@
-# 🚀 Deploy Netbird with Traefik
+# 🚀 Deploy Netbird & Zitadel with Traefik
 
 This script helps you deploy **Netbird** behind a **Traefik** reverse proxy. It's designed for users who already have a working Traefik stack. The integration relies solely on Traefik labels—no need to modify your existing setup.
 
