@@ -1,0 +1,6 @@
+[http] 
+  [http.services]
+    [http.services.api]
+      [http.services.api.loadBalancer]
+        [[http.services.api.loadBalancer.servers]] 
+        url = "http://192.168.1.250:8001"
