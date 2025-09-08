@@ -628,21 +628,21 @@ services:
       - traefik.http.routers.zitadel-grpc-auth.service=zitadel
       - traefik.http.routers.zitadel-grpc-auth.priority=400
       - traefik.http.routers.zitadel-grpc-auth.tls=true
-      - traefik.http.routers.zitadel-grpc-auth.tls.certresolver=webssl
+      - traefik.http.routers.zitadel-grpc-auth.tls.certresolver=NETBIRD_TRAEFIK_SSL
       
       - traefik.http.routers.zitadel-grpc-admin.rule=Host(`NETBIRD_DOMAIN_PLACEHOLDER`) && PathPrefix(`/zitadel.admin.v1.AdminService/`)
       - traefik.http.routers.zitadel-grpc-admin.entrypoints=https
       - traefik.http.routers.zitadel-grpc-admin.service=zitadel
       - traefik.http.routers.zitadel-grpc-admin.priority=400
       - traefik.http.routers.zitadel-grpc-admin.tls=true
-      - traefik.http.routers.zitadel-grpc-admin.tls.certresolver=webssl
+      - traefik.http.routers.zitadel-grpc-admin.tls.certresolver=NETBIRD_TRAEFIK_SSL
       
       - traefik.http.routers.zitadel-grpc-mgmt.rule=Host(`NETBIRD_DOMAIN_PLACEHOLDER`) && PathPrefix(`/zitadel.management.v1.ManagementService/`)
       - traefik.http.routers.zitadel-grpc-mgmt.entrypoints=https
       - traefik.http.routers.zitadel-grpc-mgmt.service=zitadel
       - traefik.http.routers.zitadel-grpc-mgmt.priority=400
       - traefik.http.routers.zitadel-grpc-mgmt.tls=true
-      - traefik.http.routers.zitadel-grpc-mgmt.tls.certresolver=webssl
+      - traefik.http.routers.zitadel-grpc-mgmt.tls.certresolver=NETBIRD_TRAEFIK_SSL
     logging:
       driver: "json-file"
       options:
